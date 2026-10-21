@@ -1,18 +1,26 @@
 services:
   jellyfin:
-    image: jellyfin/jellyfin
+    image: jellyfin/jellyfin:latest
     container_name: jellyfin
     restart: unless-stopped
+
+    # Passes host user permissions and timezone into the container
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
 
     ports:
       - "8096:8096/tcp"
       - "7359:7359/udp"
 
-    volumes: 
+    volumes:
       - ./config:/config
       - ./cache:/cache
-      - ./films:/media/movies:ro
-      - ./series:/media/series:ro
+      - ${MOVIES_PATH}:/media/movies:ro
+      - ${SERIES_PATH}:/media/series:ro
 
-
-
+    # Optional: Hardware Acceleration (VAAPI/Intel QuickSync/AMD)
+    # Allows low-CPU video transcoding if your host system supports integrated graphics
+    # devices:
+    #   - /dev/dri:/dev/dri
