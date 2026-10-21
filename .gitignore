@@ -1,3 +1,6 @@
 films/
 series/
 .env
+cache/
+config/
+
