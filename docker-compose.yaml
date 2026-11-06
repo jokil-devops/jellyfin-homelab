@@ -7,8 +7,7 @@ services:
     # Passes host user permissions and timezone into the container
     environment:
       - TZ=${TZ}
-      - PUID=${PUID}
-      - PGID=${PGID}
+      
 
     ports:
       - "8096:8096/tcp"
